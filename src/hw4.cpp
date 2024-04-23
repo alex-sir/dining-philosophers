@@ -4,8 +4,8 @@
  *  Homework 4
  */
 
+#include <iostream>
 #include <string>
-#include <thread>
 
 #include "philosopher.hpp"
 #include "syncro.hpp"
@@ -20,19 +20,19 @@ int main(int argc, char *argv[])
                                      "Mace Windu", "Ezra", "Palpatine", "Anakin", "Kylo Ren", "Dooku",
                                      "Kit Fitso", "Luminara", "Plo Koon", "Revan", "Thrawn", "Zeb", "Sabine"};
 
+    std::cout << "*** DINING BEGIN ***\n\n";
     // allocate philosophers[]
     for (int i = 0; i < NUM_PHILOSOPHERS; i++)
     {
         philosophers[i] = new Philosopher(nameArray[i], i, syncro.getChopstick(getLeft(i)), syncro.getChopstick(getRight(i)), syncro);
     }
 
-    usleep(1000000); // 1 second
-
     // free the memory for philosophers[]
     for (int i = 0; i < NUM_PHILOSOPHERS; i++)
     {
         delete philosophers[i];
     }
+    std::cout << "\n*** DINING END ***\n";
 
     return 0;
 }

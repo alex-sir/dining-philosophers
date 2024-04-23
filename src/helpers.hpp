@@ -17,7 +17,7 @@
 #define TAILS 1 // don't interact with the chopsticks
 
 // time in seconds
-#define TOTAL_RUN_TIME 30.0
+#define TOTAL_RUN_TIME 10.0
 #define IS_HUNGRY_TIME 3.0 // the philosopher gets hungry after this amount of time
 
 // times in microseconds

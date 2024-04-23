@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <thread>
 #include <mutex>
 #include <cmath>
 #include <unistd.h>
@@ -19,13 +20,14 @@
 
 std::mutex outputMutex; // synchronize cout print statements
 
-class Philosopher
+class Philosopher : std::thread
 {
 private:
     std::string name;
     int id;
     int state;
     double thinkTime;        // total amount of time spent thinking
+    double starvingTime;     // total amount of time spent starving (wants to eat but can't)
     Syncro &syncro;          // Syncro object that is shared among all philosophers
     Chopstick &left, &right; // identify the connections with the set of chopsticks
     std::thread mainThread;
@@ -50,6 +52,7 @@ public:
         id = newId;
         state = THINKING;
         thinkTime = 0.0;
+        starvingTime = 0.0;
     }
 
     ~Philosopher()
@@ -141,6 +144,7 @@ void Philosopher::test(int id)
 
 void Philosopher::run(void)
 {
+    // for keeping track of time
     auto runStart = std::chrono::high_resolution_clock::now();
     auto runEnd = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> currentTime = runEnd - runStart;
