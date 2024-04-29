@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
                                      "Mace Windu", "Ezra", "Palpatine", "Anakin", "Kylo Ren", "Dooku",
                                      "Kit Fitso", "Luminara", "Plo Koon", "Revan", "Thrawn", "Zeb", "Sabine"};
 
-    std::cout << "*** DINING BEGIN ***\n\n";
     // allocate philosophers[]
     for (int i = 0; i < NUM_PHILOSOPHERS; i++)
     {
@@ -32,7 +31,6 @@ int main(int argc, char *argv[])
     {
         delete philosophers[i];
     }
-    std::cout << "\n*** DINING END ***\n";
 
     return 0;
 }

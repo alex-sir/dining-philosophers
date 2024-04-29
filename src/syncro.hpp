@@ -12,13 +12,13 @@
 class Syncro
 {
 private:
-    int states[NUM_PHILOSOPHERS] = {THINKING}; // the state of each of the philosophers
     Chopstick chopsticks[NUM_PHILOSOPHERS];
+    int states[NUM_PHILOSOPHERS] = {THINKING}; // the state of each of the philosophers
 
 public:
     // getters
-    int getState(int id);
     Chopstick &getChopstick(int id);
+    int getState(int id);
 
     // setters
     void setState(int id, int newState);
@@ -29,14 +29,14 @@ public:
     void pickUpChopstick(int id);
 };
 
-int Syncro::getState(int id)
-{
-    return states[id];
-}
-
 Chopstick &Syncro::getChopstick(int id)
 {
     return chopsticks[id];
+}
+
+int Syncro::getState(int id)
+{
+    return states[id];
 }
 
 void Syncro::setState(int id, int newState)

@@ -25,8 +25,8 @@ public:
     // getters
     int getStatus(void);
 
-    void lockChopstick();
     void unlockChopstick();
+    void lockChopstick();
 };
 
 int Chopstick::getStatus(void)
@@ -34,14 +34,14 @@ int Chopstick::getStatus(void)
     return status;
 }
 
-void Chopstick::lockChopstick()
-{
-    chopTex.lock();
-    status = CHOPSTICK_UP;
-}
-
 void Chopstick::unlockChopstick()
 {
     chopTex.unlock();
     status = CHOPSTICK_DOWN;
+}
+
+void Chopstick::lockChopstick()
+{
+    chopTex.lock();
+    status = CHOPSTICK_UP;
 }
