@@ -14,14 +14,10 @@
 #define CHOPSTICK_DOWN 1
 #define CHOPSTICK_UP 0
 
-// flipping a coin
-#define HEADS 0 // get/release the chopsticks
-#define TAILS 1 // don't interact with the chopsticks
-
-// time in seconds
-#define TOTAL_RUN_TIME 30.0  // the philosophers will eat for this amount of time
-#define IS_HUNGRY_TIME 6.0   // the philosopher gets hungry after this amount of time
-#define IS_STARVING_TIME 4.0 // the philosopher is starving after this amount of time spent hungry
+// time in milliseconds
+#define TOTAL_RUN_TIME 60.0        // the philosophers will eat for this amount of time
+#define IS_HUNGRY_TIME 6.0 * 1e6   // the philosopher gets hungry after this amount of time
+#define IS_STARVING_TIME 4.0 * 1e6 // the philosopher is starving after this amount of time spent hungry
 
 // range to generate random numbers in
 #define MIN_RANGE 1.0
@@ -48,12 +44,22 @@ int getRight(int id)
     return (id + 1) % NUM_PHILOSOPHERS;
 }
 
+// generate a random integer that is either 0 or 1
+int randomCoinFlip(void)
+{
+    std::random_device seed;                     // random seed
+    std::mt19937 generate(seed());               // seed the random number generation engine
+    std::uniform_int_distribution<> range(0, 1); // set the range for integers
+
+    return range(generate); // generate a random number within the range
+}
+
 // generate a random double between min and max (time is in milliseconds)
 double randomTime(double min, double max)
 {
-    std::random_device seed;                          // random seed
-    std::mt19937 generate(seed());                    // seed the random number generation engine
-    std::uniform_real_distribution<> range(min, max); // set the range
+    std::random_device seed;
+    std::mt19937 generate(seed());
+    std::uniform_real_distribution<> range(min, max); // set the range for real numbers
 
-    return range(generate) * 1e6; // generate a random number within the range
+    return range(generate) * 1e6;
 }

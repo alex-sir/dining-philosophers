@@ -89,7 +89,8 @@ void Philosopher::think(int id)
         outputMutex.unlock();
 
         double randomThinkTime = randomTime(MIN_RANGE, MAX_RANGE);
-        usleep(randomThinkTime); // pause for a certain amount of time
+        // double randomThinkTime = 1.0 * 1e6; // thinking time of 1 second
+        usleep(randomThinkTime);            // pause for a certain amount of time
         currentThinkTime += randomThinkTime;
         thinkTime += randomThinkTime;
     }
@@ -126,7 +127,7 @@ void Philosopher::take_chopsticks(int id)
             }
 
             // starving for too long - force the philosopher to eat
-            if (currentStarveTime >= IS_STARVING_TIME * 3)
+            if (currentStarveTime >= IS_STARVING_TIME * 2)
             {
                 while (state != EATING)
                 {
@@ -146,6 +147,7 @@ void Philosopher::eat(int id)
         outputMutex.unlock();
 
         double randomEatTime = randomTime(MIN_RANGE, MAX_RANGE);
+        // double randomEatTime = 0.5 * 1e6; // eating time of 0.5 seconds
         usleep(randomEatTime);
         eatTime += randomEatTime;
     }
@@ -221,6 +223,12 @@ void Philosopher::run(void)
         // get the current elapsed time
         runEnd = std::chrono::high_resolution_clock::now();
         currentTime = runEnd - runStart;
+    }
+
+    // force the chopsticks to be put down to prevent possible freezes
+    while (state == EATING)
+    {
+        release_chopsticks(id);
     }
 
     usleep(1 * 1e6);
